@@ -1,0 +1,20 @@
+program ProjectKoperasi1;
+
+uses
+  Vcl.Forms,
+  Anggota in 'Anggota.pas' {FAnggota},
+  UDM in 'UDM.pas' {FUDM: TDataModule},
+  Simpanan in 'Simpanan.pas' {FSimpanan},
+  ListSimpanan in 'ListSimpanan.pas' {FListSimpanan};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFUDM, FUDM);
+  Application.CreateForm(TFAnggota, FAnggota);
+  Application.CreateForm(TFListSimpanan, FListSimpanan);
+  Application.CreateForm(TFSimpanan, FSimpanan);
+  Application.Run;
+end.

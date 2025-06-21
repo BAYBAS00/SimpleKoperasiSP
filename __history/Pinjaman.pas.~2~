@@ -1,0 +1,91 @@
+unit Pinjaman;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.Buttons;
+
+type
+  TFPinjaman = class(TForm)
+    Label1: TLabel;
+    edKodePinjaman: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    edKodeAnggota: TEdit;
+    Label4: TLabel;
+    edJumlah: TEdit;
+    Label5: TLabel;
+    edBunga: TEdit;
+    Label6: TLabel;
+    edTenor: TEdit;
+    Label7: TLabel;
+    cbNamaAnggota: TComboBox;
+    dtTanggal: TDateTimePicker;
+    Label8: TLabel;
+    edCicilan: TEdit;
+    Label9: TLabel;
+    edStatus: TEdit;
+    Panel1: TPanel;
+    btnBatal: TBitBtn;
+    btnSimpan: TBitBtn;
+    Splitter1: TSplitter;
+    Splitter2: TSplitter;
+  private
+    { Private declarations }
+    procedure LoadAnggota;
+    procedure GenerateKodePinjaman;
+    procedure HitungCicilan;
+  public
+    { Public declarations }
+  end;
+
+var
+  FPinjaman: TFPinjaman;
+
+implementation
+
+{$R *.dfm}
+
+uses UDM;
+
+procedure TFPinjaman.LoadAnggota;
+begin
+  cbNamaAnggota.Items.Clear;
+  FUDM.Qtemp.SQL.Text := 'SELECT kode_anggota, nama FROM anggota';
+  FUDM.Qtemp.Open;
+  while not FUDM.Qtemp.Eof do
+  begin
+    cbNamaAnggota.Items.Add(FUDM.Qtemp.FieldByName('nama').AsString);
+    FUDM.Qtemp.Next;
+  end;
+  FUDM.Qtemp.Close;
+end;
+
+procedure TFPinjaman.GenerateKodePinjaman;
+var
+  angka: Integer;
+begin
+  FUDM.Qtemp.SQL.Text := 'SELECT kode_pinjaman FROM pinjaman ORDER BY id_pinjaman DESC LIMIT 1';
+  FUDM.Qtemp.Open;
+  if not FUDM.Qtemp.IsEmpty then
+    angka := StrToIntDef(Copy(FUDM.Qtemp.FieldByName('kode_pinjaman').AsString, 4, 3), 0) + 1
+  else
+    angka := 1;
+  edKodePinjaman.Text := Format('PNJ%.3d', [angka]);
+  FUDM.Qtemp.Close;
+end;
+
+procedure TFPinjaman.HitungCicilan;
+var
+  jumlahPinjaman, bungaTotal: Double;
+  tenor: Integer;
+begin
+  jumlahPinjaman := StrToFloatDef(edJumlah.Text, 0);
+  tenor := StrToIntDef(edTenor.Text, 1);
+  bungaTotal := jumlahPinjaman * (StrToFloatDef(edBunga.Text, 0) / 100);
+  edCicilan.Text := FormatFloat('#,##0.00', (jumlahPinjaman + bungaTotal) / tenor);
+end;
+
+end.

@@ -1,0 +1,44 @@
+unit ListSimpanan;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, MemDS, DBAccess, MyAccess,
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
+
+type
+  TFListSimpanan = class(TForm)
+    Panel1: TPanel;
+    Splitter1: TSplitter;
+    Splitter2: TSplitter;
+    Splitter3: TSplitter;
+    btnRefresh: TBitBtn;
+    btnTambah: TBitBtn;
+    btnEdit: TBitBtn;
+    btnHapus: TBitBtn;
+    DBGrid1: TDBGrid;
+    QListSimpanan: TMyQuery;
+    DSListSimpanan: TDataSource;
+    QListSimpananid_simpanan: TIntegerField;
+    QListSimpanankode_simpanan: TStringField;
+    QListSimpanantanggal: TDateField;
+    QListSimpanantotal: TFloatField;
+    QListSimpanankode_anggota: TStringField;
+    QListSimpanannama: TStringField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FListSimpanan: TFListSimpanan;
+
+implementation
+
+{$R *.dfm}
+
+uses Simpanan, UDM;
+
+end.

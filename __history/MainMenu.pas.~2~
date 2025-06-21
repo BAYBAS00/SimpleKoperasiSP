@@ -1,0 +1,38 @@
+unit MainMenu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus;
+
+type
+  TFMainMenu = class(TForm)
+    MainMenu1: TMainMenu;
+    Exit1: TMenuItem;
+    Exit2: TMenuItem;
+    Simpanan1: TMenuItem;
+    Simpanan2: TMenuItem;
+    Angsuran1: TMenuItem;
+    procedure Exit1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FMainMenu: TFMainMenu;
+
+implementation
+
+{$R *.dfm}
+
+uses Anggota, Angsuran, ListPinjaman, ListSimpanan, UDM;
+
+procedure TFMainMenu.Exit1Click(Sender: TObject);
+begin
+Application.Terminate;
+end;
+
+end.

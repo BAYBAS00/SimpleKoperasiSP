@@ -1,0 +1,396 @@
+object FAngsuran: TFAngsuran
+  Left = 0
+  Top = 0
+  Caption = 'FAngsuran'
+  ClientHeight = 647
+  ClientWidth = 922
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Position = poDesktopCenter
+  OnShow = FormShow
+  TextHeight = 15
+  object Label1: TLabel
+    Left = 56
+    Top = 24
+    Width = 155
+    Height = 31
+    Caption = 'Kode Angsuran'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 56
+    Top = 88
+    Width = 152
+    Height = 31
+    Caption = 'Kode Pinjaman'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 56
+    Top = 152
+    Width = 156
+    Height = 31
+    Caption = 'Nama Anggota'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 56
+    Top = 216
+    Width = 80
+    Height = 31
+    Caption = 'Tanggal'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 56
+    Top = 280
+    Width = 72
+    Height = 31
+    Caption = 'Jumlah'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object edKodeAngsuran: TEdit
+    Left = 256
+    Top = 21
+    Width = 273
+    Height = 39
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+  end
+  object cbKodePinjaman: TComboBox
+    Left = 256
+    Top = 85
+    Width = 273
+    Height = 39
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    OnChange = cbKodePinjamanChange
+  end
+  object edNamaAnggota: TEdit
+    Left = 256
+    Top = 149
+    Width = 273
+    Height = 39
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 2
+  end
+  object dtTanggal: TDateTimePicker
+    Left = 256
+    Top = 216
+    Width = 273
+    Height = 39
+    Date = 45829.000000000000000000
+    Time = 0.481332326387928300
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+  end
+  object edJumlah: TEdit
+    Left = 256
+    Top = 277
+    Width = 273
+    Height = 39
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+  end
+  object DBGrid1: TDBGrid
+    Left = 0
+    Top = 392
+    Width = 922
+    Height = 175
+    Align = alBottom
+    DataSource = DSAngsuran
+    TabOrder = 5
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 567
+    Width = 922
+    Height = 80
+    Align = alBottom
+    TabOrder = 6
+    ExplicitTop = 559
+    ExplicitWidth = 920
+    object Splitter1: TSplitter
+      Left = 778
+      Top = 1
+      Height = 78
+      Align = alRight
+      ExplicitLeft = 851
+      ExplicitHeight = 94
+    end
+    object Splitter2: TSplitter
+      Left = 918
+      Top = 1
+      Height = 78
+      Align = alRight
+      ExplicitLeft = 926
+    end
+    object btnKeluar: TBitBtn
+      Left = 781
+      Top = 1
+      Width = 137
+      Height = 78
+      Align = alRight
+      Caption = 'Keluar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -20
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btnKeluarClick
+      ExplicitLeft = 779
+    end
+    object btnSimpan: TBitBtn
+      Left = 641
+      Top = 1
+      Width = 137
+      Height = 78
+      Align = alRight
+      Caption = 'Simpan'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -20
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      OnClick = btnSimpanClick
+      ExplicitLeft = 639
+    end
+  end
+  object btnEdit: TBitBtn
+    Left = 600
+    Top = 17
+    Width = 105
+    Height = 49
+    Caption = 'Edit'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 7
+    OnClick = btnEditClick
+  end
+  object btnHapus: TBitBtn
+    Left = 600
+    Top = 88
+    Width = 105
+    Height = 49
+    Caption = 'Hapus'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 8
+    OnClick = btnHapusClick
+  end
+  object btnBatal: TBitBtn
+    Left = 600
+    Top = 160
+    Width = 105
+    Height = 49
+    Caption = 'Batal'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 9
+    OnClick = btnBatalClick
+  end
+  object btnRefresh: TBitBtn
+    Left = 600
+    Top = 232
+    Width = 105
+    Height = 49
+    Caption = 'Refresh'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 10
+    OnClick = btnRefreshClick
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 357
+    Width = 922
+    Height = 35
+    Align = alBottom
+    TabOrder = 11
+    ExplicitTop = 349
+    ExplicitWidth = 920
+    object Splitter4: TSplitter
+      Left = 1
+      Top = 1
+      Height = 33
+      ExplicitLeft = 8
+      ExplicitTop = 16
+      ExplicitHeight = 100
+    end
+    object Label6: TLabel
+      Left = 4
+      Top = 1
+      Width = 42
+      Height = 33
+      Align = alLeft
+      Caption = 'CARI'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -20
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      ExplicitHeight = 28
+    end
+    object Splitter5: TSplitter
+      Left = 46
+      Top = 1
+      Height = 33
+      ExplicitLeft = 9
+      ExplicitTop = 2
+    end
+    object edCari: TEdit
+      Left = 49
+      Top = 1
+      Width = 444
+      Height = 33
+      Align = alLeft
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -20
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnChange = edCariChange
+      ExplicitHeight = 36
+    end
+  end
+  object QAngsuran: TMyQuery
+    Connection = FUDM.MyConnection1
+    SQL.Strings = (
+      'SELECT a.kode_angsuran, '
+      
+        'a.kode_pinjaman, p.kode_anggota, ag.nama, a.tanggal, a.jumlah_an' +
+        'gsuran'
+      'FROM angsuran a  '
+      'JOIN pinjaman p ON a.kode_pinjaman = p.kode_pinjaman'
+      'JOIN anggota ag ON p.kode_anggota = ag.kode_anggota'
+      '&WHERE')
+    Left = 472
+    Top = 440
+    MacroData = <
+      item
+        Name = 'WHERE'
+      end>
+    object QAngsurankode_angsuran: TStringField
+      DisplayWidth = 19
+      FieldName = 'kode_angsuran'
+      Origin = 'angsuran.kode_angsuran'
+      Size = 10
+    end
+    object QAngsurankode_pinjaman: TStringField
+      DisplayWidth = 19
+      FieldName = 'kode_pinjaman'
+      Origin = 'angsuran.kode_pinjaman'
+      Size = 10
+    end
+    object QAngsurankode_anggota: TStringField
+      DisplayWidth = 20
+      FieldName = 'kode_anggota'
+      Origin = 'pinjaman.kode_anggota'
+      Size = 10
+    end
+    object QAngsurannama: TStringField
+      DisplayWidth = 33
+      FieldName = 'nama'
+      Origin = 'anggota.nama'
+      Size = 100
+    end
+    object QAngsurantanggal: TDateField
+      DisplayWidth = 10
+      FieldName = 'tanggal'
+      Origin = 'angsuran.tanggal'
+    end
+    object QAngsuranjumlah_angsuran: TFloatField
+      DisplayWidth = 15
+      FieldName = 'jumlah_angsuran'
+      Origin = 'angsuran.jumlah_angsuran'
+    end
+  end
+  object DSAngsuran: TDataSource
+    DataSet = QAngsuran
+    Left = 656
+    Top = 448
+  end
+end

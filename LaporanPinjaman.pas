@@ -1,0 +1,87 @@
+unit LaporanPinjaman;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, RLFilters, RLPDFFilter, Data.DB, MemDS,
+  DBAccess, MyAccess, RLReport;
+
+type
+  TFLaporanPinjaman = class(TForm)
+    RLReport1: TRLReport;
+    RLBand1: TRLBand;
+    RLLabel1: TRLLabel;
+    RLGroup1: TRLGroup;
+    RLBand2: TRLBand;
+    RLLabel4: TRLLabel;
+    RLLabel5: TRLLabel;
+    RLLabel6: TRLLabel;
+    RLBand3: TRLBand;
+    RLBand5: TRLBand;
+    RLSystemInfo1: TRLSystemInfo;
+    RLSystemInfo2: TRLSystemInfo;
+    RLLabel8: TRLLabel;
+    RLSystemInfo3: TRLSystemInfo;
+    QLaporanPinjaman: TMyQuery;
+    DSLaporanPinjaman: TDataSource;
+    RLPDFFilter1: TRLPDFFilter;
+    RLDBText1: TRLDBText;
+    RLLabel2: TRLLabel;
+    RLDBText2: TRLDBText;
+    RLDBText6: TRLDBText;
+    RLDBText7: TRLDBText;
+    QLaporanPinjamankode_pinjaman: TStringField;
+    QLaporanPinjamankode_anggota: TStringField;
+    QLaporanPinjamannama_anggota: TStringField;
+    QLaporanPinjamantanggal_pinjaman: TDateField;
+    QLaporanPinjamanjumlah: TFloatField;
+    QLaporanPinjamantenor: TIntegerField;
+    QLaporanPinjamanbunga: TFloatField;
+    QLaporanPinjamancicilan: TFloatField;
+    QLaporanPinjamantotal_tagihan: TFloatField;
+    QLaporanPinjamankode_angsuran: TStringField;
+    QLaporanPinjamantanggal_angsuran: TDateField;
+    QLaporanPinjamanjumlah_angsuran: TFloatField;
+    QLaporanPinjamantotal_angsuran: TFloatField;
+    QLaporanPinjamansisa: TFloatField;
+    QLaporanPinjamanstatus_lunas: TStringField;
+    RLDBText10: TRLDBText;
+    RLDBText11: TRLDBText;
+    RLDBText13: TRLDBText;
+    RLDBText9: TRLDBText;
+    RLLabel10: TRLLabel;
+    RLLabel11: TRLLabel;
+    RLLabel12: TRLLabel;
+    RLLabel13: TRLLabel;
+    RLLabel14: TRLLabel;
+    RLLabel3: TRLLabel;
+    RLLabel9: TRLLabel;
+    RLDBText8: TRLDBText;
+    RLDBText12: TRLDBText;
+    RLDBText14: TRLDBText;
+    RLBand4: TRLBand;
+    RLDBText3: TRLDBText;
+    RLDBText4: TRLDBText;
+    RLDBText5: TRLDBText;
+    RLLabel7: TRLLabel;
+    RLLabel15: TRLLabel;
+    RLLabel16: TRLLabel;
+    RLBand6: TRLBand;
+    RLDraw2: TRLDraw;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FLaporanPinjaman: TFLaporanPinjaman;
+
+implementation
+
+{$R *.dfm}
+
+uses UDM;
+
+end.

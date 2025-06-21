@@ -1,0 +1,204 @@
+﻿unit Anggota;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, MemDS, DBAccess, MyAccess,
+  Vcl.ExtCtrls;
+
+type
+  TFAnggota = class(TForm)
+    Label1: TLabel;
+    edKodeAnggota: TEdit;
+    Label2: TLabel;
+    edNama: TEdit;
+    Label3: TLabel;
+    memoAlamat: TMemo;
+    Label4: TLabel;
+    edNoTelp: TEdit;
+    Label5: TLabel;
+    dtTanggal: TDateTimePicker;
+    btnTambah: TBitBtn;
+    btnEdit: TBitBtn;
+    btnHapus: TBitBtn;
+    btnBatal: TBitBtn;
+    DBGrid1: TDBGrid;
+    DSAnggota: TDataSource;
+    QAnggota: TMyQuery;
+    btnRefresh: TBitBtn;
+    Panel2: TPanel;
+    Splitter4: TSplitter;
+    Label6: TLabel;
+    Splitter5: TSplitter;
+    edCari: TEdit;
+    procedure FormShow(Sender: TObject);
+    procedure btnTambahClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure btnHapusClick(Sender: TObject);
+    procedure btnBatalClick(Sender: TObject);
+    procedure DBGrid1CellClick(Column: TColumn);
+    procedure btnRefreshClick(Sender: TObject);
+    procedure edCariChange(Sender: TObject);
+  private
+    { Private declarations }
+  procedure KosongkanField;
+  procedure IsiFieldDariGrid;
+  procedure GenerateKodeAnggota;
+  public
+    { Public declarations }
+  end;
+
+var
+  FAnggota: TFAnggota;
+
+implementation
+
+{$R *.dfm}
+
+uses UDM;
+
+procedure TFAnggota.KosongkanField;
+begin
+  edKodeAnggota.Clear;
+  edNama.Clear;
+  edNoTelp.Clear;
+  memoAlamat.Clear;
+  dtTanggal.Date := Date;
+end;
+
+procedure TFAnggota.btnEditClick(Sender: TObject);
+begin
+  if edNama.Text = '' then Exit;
+
+  FUDM.Qtemp.Close;
+  FUDM.Qtemp.SQL.Text := 'UPDATE anggota SET nama = :nama, alamat = :alamat, ' +
+                         'telepon = :telepon, tanggal_daftar = :tanggal ' +
+                         'WHERE kode_anggota = :kode';
+  FUDM.Qtemp.ParamByName('kode').AsString := edKodeAnggota.Text;
+  FUDM.Qtemp.ParamByName('nama').AsString := edNama.Text;
+  FUDM.Qtemp.ParamByName('alamat').AsString := memoAlamat.Text;
+  FUDM.Qtemp.ParamByName('telepon').AsString := edNoTelp.Text;
+  FUDM.Qtemp.ParamByName('tanggal').AsDate := dtTanggal.Date;
+  FUDM.Qtemp.ExecSQL;
+
+  FormShow(nil);
+end;
+
+procedure TFAnggota.btnHapusClick(Sender: TObject);
+begin
+  if edKodeAnggota.Text = '' then Exit;
+
+  if MessageDlg('Hapus data ini?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    FUDM.Qtemp.Close;
+    FUDM.Qtemp.SQL.Text := 'DELETE FROM anggota WHERE kode_anggota = :kode';
+    FUDM.Qtemp.ParamByName('kode').AsString := edKodeAnggota.Text;
+    FUDM.Qtemp.ExecSQL;
+
+    FormShow(nil);
+  end;
+end;
+
+procedure TFAnggota.btnRefreshClick(Sender: TObject);
+begin
+QAnggota.Close;
+QAnggota.Open;
+end;
+
+procedure TFAnggota.btnBatalClick(Sender: TObject);
+begin
+  KosongkanField;
+  GenerateKodeAnggota;
+end;
+
+procedure TFAnggota.btnTambahClick(Sender: TObject);
+begin
+  if (edKodeAnggota.Text = '') or (edNama.Text = '') then
+  begin
+    ShowMessage('Kode dan Nama wajib diisi.');
+    Exit;
+  end;
+
+  FUDM.Qtemp.Close;
+  FUDM.Qtemp.SQL.Text := 'INSERT INTO anggota (kode_anggota, nama, alamat, telepon, tanggal_daftar) ' +
+                         'VALUES (:kode, :nama, :alamat, :telepon, :tanggal)';
+  FUDM.Qtemp.ParamByName('kode').AsString := edKodeAnggota.Text;
+  FUDM.Qtemp.ParamByName('nama').AsString := edNama.Text;
+  FUDM.Qtemp.ParamByName('alamat').AsString := memoAlamat.Text;
+  FUDM.Qtemp.ParamByName('telepon').AsString := edNoTelp.Text;
+  FUDM.Qtemp.ParamByName('tanggal').AsDate := dtTanggal.Date;
+  FUDM.Qtemp.ExecSQL;
+
+  FormShow(nil);
+end;
+
+
+procedure TFAnggota.DBGrid1CellClick(Column: TColumn);
+begin
+ IsiFieldDariGrid;
+end;
+
+procedure TFAnggota.edCariChange(Sender: TObject);
+begin
+  QAnggota.MacroByName('WHERE').Value :=
+    'WHERE kode_anggota LIKE ' + QuotedStr('%' + edCari.Text + '%') +
+    ' OR nama LIKE ' + QuotedStr('%' + edCari.Text + '%');
+
+  if QAnggota.Active then
+    QAnggota.Refresh
+  else
+    QAnggota.Open;
+end;
+
+procedure TFAnggota.FormShow(Sender: TObject);
+begin
+  KosongkanField;
+  GenerateKodeAnggota;
+  btnRefreshClick(nil);
+end;
+
+procedure TFAnggota.IsiFieldDariGrid;
+begin
+  edKodeAnggota.Text := QAnggota.FieldByName('kode_anggota').AsString;
+  edNama.Text := QAnggota.FieldByName('nama').AsString;
+  edNoTelp.Text := QAnggota.FieldByName('telepon').AsString;
+  memoAlamat.Text := QAnggota.FieldByName('alamat').AsString;
+  dtTanggal.Date := QAnggota.FieldByName('tanggal_daftar').AsDateTime;
+end;
+
+procedure TFAnggota.GenerateKodeAnggota;
+var
+  kodeTerakhir, angkaBaru: string;
+  angka: Integer;
+  qry: TMyQuery;
+begin
+  qry := TMyQuery.Create(nil);
+  try
+    qry.Connection := FUDM.MyConnection1;
+    qry.SQL.Text := 'SELECT kode_anggota FROM anggota ORDER BY id_anggota DESC LIMIT 1';
+    qry.Open;
+
+    if not qry.IsEmpty then
+    begin
+      kodeTerakhir := qry.FieldByName('kode_anggota').AsString;
+      // ambil angka dari belakang, misal AGT007 → 007
+      angka := StrToIntDef(Copy(kodeTerakhir, 4, 3), 0);
+      Inc(angka);
+    end
+    else
+      angka := 1;
+
+    angkaBaru := Format('AGT%.3d', [angka]);  // hasil: AGT001, AGT010, AGT123
+    edKodeAnggota.Text := angkaBaru;
+
+  finally
+    qry.Free;
+  end;
+end;
+
+
+
+
+end.

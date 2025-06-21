@@ -1,0 +1,175 @@
+unit Simpanan;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  Vcl.ComCtrls, Data.DB, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TFSimpanan = class(TForm)
+    Label1: TLabel;
+    edKodeSimpanan: TEdit;
+    cbNamaAnggota: TComboBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    edKodeAnggota: TEdit;
+    dtTanggal: TDateTimePicker;
+    Label4: TLabel;
+    Panel1: TPanel;
+    btnBatal: TBitBtn;
+    btnSimpan: TBitBtn;
+    Label5: TLabel;
+    edTotal: TEdit;
+    DBGrid1: TDBGrid;
+    cdsDetail: TClientDataSet;
+    dsDetail: TDataSource;
+    procedure FormShow(Sender: TObject);
+    procedure cbNamaAnggotaChange(Sender: TObject);
+    procedure cdsDetailAfterPost(DataSet: TDataSet);
+    procedure btnSimpanClick(Sender: TObject);
+    procedure btnBatalClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure LoadAnggota;
+    procedure GenerateKodeSimpanan;
+    procedure HitungTotal;
+  public
+    { Public declarations }
+  end;
+
+var
+  FSimpanan: TFSimpanan;
+
+implementation
+
+{$R *.dfm}
+
+uses UDM;
+
+procedure TFSimpanan.LoadAnggota;
+begin
+  cbNamaAnggota.Items.Clear;
+  FUDM.Qtemp.SQL.Text := 'SELECT kode_anggota, nama FROM anggota';
+  FUDM.Qtemp.Open;
+  while not FUDM.Qtemp.Eof do
+  begin
+    cbNamaAnggota.Items.Add(FUDM.Qtemp.FieldByName('nama').AsString);
+    FUDM.Qtemp.Next;
+  end;
+  FUDM.Qtemp.Close;
+end;
+
+procedure TFSimpanan.btnBatalClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFSimpanan.btnSimpanClick(Sender: TObject);
+begin
+var
+  idSimpanan: Integer;
+begin
+
+  // Post data terakhir di grid, hitung ulang total
+  if cdsDetail.State in [dsInsert, dsEdit] then
+    cdsDetail.Post;
+
+  HitungTotal;
+
+  // Validasi nilai
+  if Trim(edTotal.Text) = '' then
+    edTotal.Text := '0';
+
+  // simpan ke master
+  FUDM.Qtemp.SQL.Text :=
+    'INSERT INTO simpanan_master (kode_simpanan, kode_anggota, tanggal, total) ' +
+    'VALUES (:kode, :anggota, :tgl, :total)';
+  FUDM.Qtemp.ParamByName('kode').AsString := edKodeSimpanan.Text;
+  FUDM.Qtemp.ParamByName('anggota').AsString := edKodeAnggota.Text;
+  FUDM.Qtemp.ParamByName('tgl').AsDate := dtTanggal.Date;
+  FUDM.Qtemp.ParamByName('total').AsFloat := StrToFloatDef(StringReplace(edTotal.Text, ',', '', [rfReplaceAll]), 0);
+  FUDM.Qtemp.ExecSQL;
+
+  // ambil ID simpanan terakhir
+  FUDM.Qtemp.SQL.Text := 'SELECT LAST_INSERT_ID() AS id_simpanan';
+  FUDM.Qtemp.Open;
+  idSimpanan := FUDM.Qtemp.FieldByName('id_simpanan').AsInteger;
+  FUDM.Qtemp.Close;
+
+  // simpan detail
+  cdsDetail.First;
+  while not cdsDetail.Eof do
+  begin
+    FUDM.Qtemp.SQL.Text :=
+      'INSERT INTO simpanan_detail (id_simpanan, jumlah) VALUES (:id, :jumlah)';
+    FUDM.Qtemp.ParamByName('id').AsInteger := idSimpanan;
+    FUDM.Qtemp.ParamByName('jumlah').AsFloat := cdsDetail.FieldByName('jumlah').AsFloat;
+    FUDM.Qtemp.ExecSQL;
+    cdsDetail.Next;
+  end;
+end;
+
+  ShowMessage('Data simpanan berhasil disimpan.');
+  Close;
+end;
+
+procedure TFSimpanan.cbNamaAnggotaChange(Sender: TObject);
+begin
+  FUDM.Qtemp.SQL.Text := 'SELECT kode_anggota FROM anggota WHERE nama = :nama';
+  FUDM.Qtemp.ParamByName('nama').AsString := cbNamaAnggota.Text;
+  FUDM.Qtemp.Open;
+  edKodeAnggota.Text := FUDM.Qtemp.FieldByName('kode_anggota').AsString;
+  FUDM.Qtemp.Close;
+end;
+
+procedure TFSimpanan.cdsDetailAfterPost(DataSet: TDataSet);
+begin
+  HitungTotal;
+end;
+
+procedure TFSimpanan.FormShow(Sender: TObject);
+begin
+  LoadAnggota;
+  GenerateKodeSimpanan;
+  if cdsDetail.Active then
+  cdsDetail.Close;
+cdsDetail.CreateDataSet;
+  dtTanggal.Date := Date;
+end;
+
+procedure TFSimpanan.GenerateKodeSimpanan;
+var
+  kodeTerakhir: string;
+  angka: Integer;
+begin
+  FUDM.Qtemp.SQL.Text := 'SELECT kode_simpanan FROM simpanan_master ORDER BY id_simpanan DESC LIMIT 1';
+  FUDM.Qtemp.Open;
+  if not FUDM.Qtemp.IsEmpty then
+    angka := StrToIntDef(Copy(FUDM.Qtemp.FieldByName('kode_simpanan').AsString, 4, 3), 0) + 1
+  else
+    angka := 1;
+  edKodeSimpanan.Text := Format('SMP%.3d', [angka]);
+  FUDM.Qtemp.Close;
+end;
+
+procedure TFSimpanan.HitungTotal;
+var
+  total: Double;
+begin
+if cdsDetail.State in [dsEdit, dsInsert] then
+    cdsDetail.Post;
+  total := 0;
+  cdsDetail.First;
+  while not cdsDetail.Eof do
+  begin
+    total := total + cdsDetail.FieldByName('Jumlah').AsFloat;
+    cdsDetail.Next;
+  end;
+  edTotal.Text := FloatToStr(total);
+end;
+
+
+
+end.

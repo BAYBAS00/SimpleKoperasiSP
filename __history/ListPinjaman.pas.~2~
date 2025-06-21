@@ -1,0 +1,43 @@
+unit ListPinjaman;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  Data.DB, MemDS, DBAccess, MyAccess, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TFListPinjaman = class(TForm)
+    Panel2: TPanel;
+    Splitter4: TSplitter;
+    Label1: TLabel;
+    Splitter5: TSplitter;
+    edCari: TEdit;
+    DBGrid1: TDBGrid;
+    QListPinjaman: TMyQuery;
+    DSListPinjaman: TDataSource;
+    Panel1: TPanel;
+    Splitter1: TSplitter;
+    Splitter2: TSplitter;
+    Splitter3: TSplitter;
+    btnRefresh: TBitBtn;
+    btnTambah: TBitBtn;
+    btnEdit: TBitBtn;
+    btnHapus: TBitBtn;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FListPinjaman: TFListPinjaman;
+
+implementation
+
+{$R *.dfm}
+
+uses Angsuran, Pinjaman, UDM;
+
+end.

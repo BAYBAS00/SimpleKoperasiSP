@@ -1,0 +1,38 @@
+unit UDM;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, MemDS, DBAccess, MyAccess;
+
+type
+  TFUDM = class(TDataModule)
+    MyConnection1: TMyConnection;
+    Qtemp: TMyQuery;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function GetTenor(id_pinjaman: Integer): Integer;
+  end;
+
+var
+  FUDM: TFUDM;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+function TFUDM.GetTenor(id_pinjaman: Integer): Integer;
+begin
+  Qtemp.Close;
+  Qtemp.SQL.Text := 'SELECT tenor FROM pinjaman WHERE id_pinjaman = :id';
+  Qtemp.ParamByName('id').AsInteger := id_pinjaman;
+  Qtemp.Open;
+  Result := Qtemp.FieldByName('tenor').AsInteger;
+  Qtemp.Close;
+end;
+
+end.

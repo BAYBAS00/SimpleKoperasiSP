@@ -1,0 +1,110 @@
+unit Simpanan;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  Vcl.ComCtrls, Data.DB, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TFSimpanan = class(TForm)
+    Label1: TLabel;
+    edKodeSimpanan: TEdit;
+    cbNamaAnggota: TComboBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    edKodeAnggota: TEdit;
+    dtTanggal: TDateTimePicker;
+    Label4: TLabel;
+    Panel1: TPanel;
+    BitBtn1: TBitBtn;
+    btnBatal: TBitBtn;
+    btnSimpan: TBitBtn;
+    Label5: TLabel;
+    edTotal: TEdit;
+    DBGrid1: TDBGrid;
+    cdsDetail: TClientDataSet;
+    dsDetail: TDataSource;
+    procedure FormShow(Sender: TObject);
+    procedure cbNamaAnggotaChange(Sender: TObject);
+  private
+    { Private declarations }
+    procedure LoadAnggota;
+    procedure GenerateKodeSimpanan;
+    procedure HitungTotal;
+  public
+    { Public declarations }
+  end;
+
+var
+  FSimpanan: TFSimpanan;
+
+implementation
+
+{$R *.dfm}
+
+uses UDM;
+
+procedure TFSimpanan.LoadAnggota;
+begin
+  cbNamaAnggota.Items.Clear;
+  FUDM.Qtemp.SQL.Text := 'SELECT kode_anggota, nama FROM anggota';
+  FUDM.Qtemp.Open;
+  while not FUDM.Qtemp.Eof do
+  begin
+    cbNamaAnggota.Items.Add(FUDM.Qtemp.FieldByName('nama').AsString);
+    FUDM.Qtemp.Next;
+  end;
+  FUDM.Qtemp.Close;
+end;
+
+procedure TFSimpanan.cbNamaAnggotaChange(Sender: TObject);
+begin
+  FUDM.Qtemp.SQL.Text := 'SELECT kode_anggota FROM anggota WHERE nama = :nama';
+  FUDM.Qtemp.ParamByName('nama').AsString := cbNamaAnggota.Text;
+  FUDM.Qtemp.Open;
+  edKodeAnggota.Text := FUDM.Qtemp.FieldByName('kode_anggota').AsString;
+  FUDM.Qtemp.Close;
+end;
+
+procedure TFSimpanan.FormShow(Sender: TObject);
+begin
+  LoadAnggota;
+  GenerateKodeSimpanan;
+  cdsDetail.CreateDataSet;
+  dtTanggal.Date := Date;
+end;
+
+procedure TFSimpanan.GenerateKodeSimpanan;
+var
+  kodeTerakhir: string;
+  angka: Integer;
+begin
+  FUDM.Qtemp.SQL.Text := 'SELECT kode_simpanan FROM simpanan_master ORDER BY id_simpanan DESC LIMIT 1';
+  FUDM.Qtemp.Open;
+  if not FUDM.Qtemp.IsEmpty then
+    angka := StrToIntDef(Copy(FUDM.Qtemp.FieldByName('kode_simpanan').AsString, 4, 3), 0) + 1
+  else
+    angka := 1;
+  edKodeSimpanan.Text := Format('SMP%.3d', [angka]);
+  FUDM.Qtemp.Close;
+end;
+
+procedure TFSimpanan.HitungTotal;
+var
+  total: Double;
+begin
+  total := 0;
+  cdsDetail.First;
+  while not cdsDetail.Eof do
+  begin
+    total := total + cdsDetail.FieldByName('jumlah').AsFloat;
+    cdsDetail.Next;
+  end;
+  edTotal.Text := FormatFloat('#,##0.00', total);
+end;
+
+
+
+end.

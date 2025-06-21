@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/06/20 22:14:27.000.347,=D:\my-program\delphi\Unit1.pas</Transaction>
+    <Transaction>2025/06/20 22:14:50.000.884,D:\my-program\delphi\Unit1.dfm=D:\my-program\delphi\project-koperasi1\Anggota.dfm</Transaction>
+    <Transaction>2025/06/20 22:14:50.000.884,D:\my-program\delphi\Unit1.pas=D:\my-program\delphi\project-koperasi1\Anggota.pas</Transaction>
+    <Transaction>2025/06/20 22:15:35.000.190,=D:\my-program\delphi\Unit1.pas</Transaction>
+    <Transaction>2025/06/20 22:15:47.000.875,D:\my-program\delphi\Unit1.pas=D:\my-program\delphi\project-koperasi1\UDM.pas</Transaction>
+    <Transaction>2025/06/20 22:15:47.000.875,D:\my-program\delphi\Unit1.dfm=D:\my-program\delphi\project-koperasi1\UDM.dfm</Transaction>
+    <Transaction>2025/06/20 22:15:56.000.687,D:\my-program\delphi\Project1.dproj=D:\my-program\delphi\project-koperasi1\ProjectKoperasi1.dproj</Transaction>
+    <Transaction>2025/06/20 23:46:49.000.822,=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/20 23:47:00.000.072,D:\my-program\delphi\project-koperasi1\Unit1.dfm=D:\my-program\delphi\project-koperasi1\Simpanan.dfm</Transaction>
+    <Transaction>2025/06/20 23:47:00.000.072,D:\my-program\delphi\project-koperasi1\Unit1.pas=D:\my-program\delphi\project-koperasi1\Simpanan.pas</Transaction>
+    <Transaction>2025/06/21 00:44:21.000.168,=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 00:44:32.000.672,D:\my-program\delphi\project-koperasi1\ListSimpanan.pas=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 00:44:32.000.672,D:\my-program\delphi\project-koperasi1\ListSimpanan.dfm=D:\my-program\delphi\project-koperasi1\Unit1.dfm</Transaction>
+    <Transaction>2025/06/21 11:27:39.000.076,=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 11:27:51.000.924,D:\my-program\delphi\project-koperasi1\Pinjaman.pas=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 11:27:51.000.924,D:\my-program\delphi\project-koperasi1\Pinjaman.dfm=D:\my-program\delphi\project-koperasi1\Unit1.dfm</Transaction>
+    <Transaction>2025/06/21 12:23:44.000.133,=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 12:23:57.000.221,D:\my-program\delphi\project-koperasi1\Anggaran.dfm=D:\my-program\delphi\project-koperasi1\Unit1.dfm</Transaction>
+    <Transaction>2025/06/21 12:23:57.000.221,D:\my-program\delphi\project-koperasi1\Anggaran.pas=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 12:54:17.000.018,D:\my-program\delphi\project-koperasi1\Angsuran.dfm=D:\my-program\delphi\project-koperasi1\Anggaran.dfm</Transaction>
+    <Transaction>2025/06/21 12:54:17.000.018,D:\my-program\delphi\project-koperasi1\Angsuran.pas=D:\my-program\delphi\project-koperasi1\Anggaran.pas</Transaction>
+    <Transaction>2025/06/21 14:01:34.000.802,=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 14:05:14.000.399,D:\my-program\delphi\project-koperasi1\ListPinjamAngsur.dfm=D:\my-program\delphi\project-koperasi1\Unit1.dfm</Transaction>
+    <Transaction>2025/06/21 14:05:14.000.399,D:\my-program\delphi\project-koperasi1\ListPinjamAngsur.pas=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 15:06:55.000.972,D:\my-program\delphi\project-koperasi1\ListPinjaman.dfm=D:\my-program\delphi\project-koperasi1\ListPinjamAngsur.dfm</Transaction>
+    <Transaction>2025/06/21 15:06:55.000.972,D:\my-program\delphi\project-koperasi1\ListPinjaman.pas=D:\my-program\delphi\project-koperasi1\ListPinjamAngsur.pas</Transaction>
+    <Transaction>2025/06/21 18:43:09.000.147,=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 18:43:25.000.388,D:\my-program\delphi\project-koperasi1\Unit1.dfm=D:\my-program\delphi\project-koperasi1\LaporanSimpanan.dfm</Transaction>
+    <Transaction>2025/06/21 18:43:25.000.388,D:\my-program\delphi\project-koperasi1\Unit1.pas=D:\my-program\delphi\project-koperasi1\LaporanSimpanan.pas</Transaction>
+    <Transaction>2025/06/21 19:33:00.000.732,=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 19:33:13.000.249,D:\my-program\delphi\project-koperasi1\LaporanPinjaman.dfm=D:\my-program\delphi\project-koperasi1\Unit1.dfm</Transaction>
+    <Transaction>2025/06/21 19:33:13.000.249,D:\my-program\delphi\project-koperasi1\LaporanPinjaman.pas=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 20:32:55.000.972,=D:\my-program\delphi\project-koperasi1\Unit1.pas</Transaction>
+    <Transaction>2025/06/21 20:33:04.000.831,D:\my-program\delphi\project-koperasi1\Unit1.pas=D:\my-program\delphi\project-koperasi1\MainMenu.pas</Transaction>
+    <Transaction>2025/06/21 20:33:04.000.831,D:\my-program\delphi\project-koperasi1\Unit1.dfm=D:\my-program\delphi\project-koperasi1\MainMenu.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

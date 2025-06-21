@@ -1,0 +1,46 @@
+unit Angsuran;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, Vcl.ComCtrls, MemDS, DBAccess, MyAccess, Vcl.Buttons,
+  Vcl.ExtCtrls;
+
+type
+  TFAngsuran = class(TForm)
+    Label1: TLabel;
+    edKodePinjaman: TEdit;
+    Label2: TLabel;
+    cbNamaAnggota: TComboBox;
+    Label3: TLabel;
+    edKodeAnggota: TEdit;
+    Label4: TLabel;
+    dtTanggal: TDateTimePicker;
+    Label5: TLabel;
+    edJumlah: TEdit;
+    DBGrid1: TDBGrid;
+    Panel1: TPanel;
+    Splitter1: TSplitter;
+    Splitter2: TSplitter;
+    btnBatal: TBitBtn;
+    btnSimpan: TBitBtn;
+    QAngsuran: TMyQuery;
+    DSAngsuran: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FAngsuran: TFAngsuran;
+
+implementation
+
+{$R *.dfm}
+
+uses Pinjaman, UDM;
+
+end.
